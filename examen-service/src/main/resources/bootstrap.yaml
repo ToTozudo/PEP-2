@@ -1,12 +1,12 @@
 spring:
   application:
-    name: alumno-service
+    name: examen-service
   cloud:
     config:
       enabled: true
       uri: http://localhost:8081
   datasource:
-    url: jdbc:mysql://localhost:3306/alumno?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/examen?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: R00t@dmin
     driver-class-name: com.mysql.cj.jdbc.Driver
