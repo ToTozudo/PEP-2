@@ -25,7 +25,7 @@ spring:
           uri: lb://cuota-service
           predicates:
             - Path=/cuota/**
-        - id: examen-service
-          uri: lb://examen-service
+        - id: planilla-service
+          uri: lb://planilla-service
           predicates:
-            - Path=/examen/**
+            - Path=/planilla/**
