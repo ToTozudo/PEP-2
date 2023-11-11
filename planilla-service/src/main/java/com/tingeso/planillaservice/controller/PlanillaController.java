@@ -25,7 +25,7 @@ public class PlanillaController {
 
     @PostMapping()
     public ResponseEntity<Planilla> save(@RequestBody Planilla planilla) {
-        Planilla nuevaPlanilla = PlanillaService.save(planilla);
+        Planilla nuevaPlanilla = planillaService.save(planilla);
         return ResponseEntity.ok(nuevaPlanilla);
     }
     @GetMapping("/{id}")

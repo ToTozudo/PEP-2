@@ -12,5 +12,5 @@ public class PlanillaService {
     @Autowired
     PlanillaRepository planillaRepository;
     public List<Planilla> getAll() { return planillaRepository.findAll();}
-    public Planilla getPlanillaByRut(String rut){return planillaRepository.findByAlumnoRut(rut);}
+    public Planilla getPlanillaByRut(String rut){return planillaRepository.findByRut(rut);}
 }
