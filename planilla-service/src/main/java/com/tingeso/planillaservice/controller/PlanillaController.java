@@ -23,10 +23,15 @@ public class PlanillaController {
         return ResponseEntity.ok(planillas);
     }
 
-    @PostMapping()
-    public ResponseEntity<Planilla> save(@RequestBody Planilla planilla) {
-        Planilla nuevaPlanilla = planillaService.save(planilla);
-        return ResponseEntity.ok(nuevaPlanilla);
+    @PostMapping("/guardar")
+    public ResponseEntity<Boolean> save(@RequestBody Planilla planilla) {
+        planillaService.guardarPlanilla(planilla);
+        return ResponseEntity.ok(true);
+    }
+    @PostMapping("/actualizar/{rut}")
+    public ResponseEntity<Boolean> update(@RequestParam("rut") String rut, @RequestBody Planilla planilla) {
+        planillaService.updatePlanilla(rut, planilla);
+        return ResponseEntity.ok(true);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Planilla> getById(@PathVariable("rut") String rut) {
@@ -36,11 +41,5 @@ public class PlanillaController {
         return ResponseEntity.ok(planilla);
     }
 
-
-    @GetMapping("/bystudent/{studentId}")
-    public ResponseEntity<List<Book>> getByStudentId(@PathVariable("studentId") int studentId) {
-        List<Book> books = bookService.byStudentId(studentId);
-        return ResponseEntity.ok(books);
-    }
 
 }

@@ -7,8 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CuotaRepository extends JpaRepository<Cuota, String>{
+public interface CuotaRepository extends JpaRepository<Cuota, Long>{
     List<Cuota> findByRut(String rut);
 
-    List<Cuota> findByRutAndEstado(String rut, String estado);
+    List<Cuota> findByRutAndEstado(String rut, int estado);
+
+    Cuota findFirstByRutAndEstadoOrderByPlazoAsc(String rut, int i);
+
+    List<Cuota> findAllByRutAndEstado(String rut, int i);
 }

@@ -1,6 +1,6 @@
 package com.tingeso.topeducation.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +20,7 @@ public class Alumno {
         private int clasificacion;
         private LocalDate fechaNacimiento;
         private int egreso;
+        private int promPuntaje;
+        private int pruebasRendidas;
 
 }

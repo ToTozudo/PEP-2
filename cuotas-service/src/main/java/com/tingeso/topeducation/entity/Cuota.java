@@ -1,9 +1,6 @@
 package com.tingeso.topeducation.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +17,7 @@ public class Cuota {
         private Long ID;
         private String rut;
         private Double monto;
-        private String estado;
+        private int estado;
         private LocalDate plazo;
 
 }

@@ -13,4 +13,12 @@ public class PlanillaService {
     PlanillaRepository planillaRepository;
     public List<Planilla> getAll() { return planillaRepository.findAll();}
     public Planilla getPlanillaByRut(String rut){return planillaRepository.findByRut(rut);}
+
+    public void guardarPlanilla(Planilla planilla){planillaRepository.save(planilla);}
+
+    public void updatePlanilla(String rut, Planilla planilla) {
+        Planilla planillaAntigua = getPlanillaByRut(rut);
+        planillaAntigua.setDctoPuntaje(planilla.getDctoPuntaje());
+        planillaAntigua.setIntereses(planilla.getIntereses());
+    }
 }
