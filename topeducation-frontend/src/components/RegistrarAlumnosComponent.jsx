@@ -3,61 +3,90 @@ import '../App.css';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-class IngresarProveedorComponent extends Component {
+class RegistrarAlumnoComponent extends Component {
 
+    
     constructor(props) {
-        super(props);
-        this.state = {
-            codigo: '',
-            nombre: '',
-            categoria: '',
-            retencion: null,
-        };
     }
 
-    changeCodigoProveedor = event => {
+    changeRutAlumno = event => {
         this.setState({
-            codigo: event.target.value
+            rut: event.target.value
         });
-        console.log(this.state.codigo)
+        console.log(this.state.rut)
     };
 
-    changeNombreProveedor = event => {
-        this.setState({
-            nombre: event.target.value
-        });
-        console.log(this.state.nombre)
+    validarRUT = (rut) => {
+        const rutPattern = /^(\d{1,2}\.\d{3}\.\d{3}-[\dkK])$/;
+        return rutPattern.test(rut);
     };
 
-    changeCategoriaProveedor = event => {
+    changeNombresAlumno = event => {
         this.setState({
-            categoria: event.target.value
+            nombres: event.target.value
         });
-        console.log(this.state.categoria)
+        console.log(this.state.nombres)
     };
 
-    changeRetencionProveedor = event => {
+    changeApellidoAlumno = event => {
         this.setState({
-            retencion: event.target.value
+            apellidos: event.target.value
         });
-        console.log(this.state.retencion)
+        console.log(this.state.apellidos)
     };
 
-    guardarProveedor = event => {
+    changeFechaNacimientoAlumno = event => {
+        this.setState({
+            fechaNacimiento: event.target.value
+        });
+        console.log(this.state.fechaNacimiento)
+    };
+
+    changeColegioAlumno = event => {
+        this.setState({
+            colegio: event.target.value
+        });
+        console.log(this.state.colegio)
+    };
+
+    changeClasificacionAlumno = event => {
+        this.setState({
+            clasificacion: event.target.value
+        });
+        console.log(this.state.clasificacion)
+    };
+
+    changeEgresoAlumno = event => {
+        this.setState({
+            egreso: event.target.value
+        });
+        console.log(this.state.egreso)
+    };
+
+    changeCuotasAlumno = event => {
+        this.setState({
+            cuotas: event.target.value
+        });
+        console.log(this.state.cuotas)
+    };
+
+    
+
+    guardarAlumno = event => {
         event.preventDefault();
         const MySwal = withReactContent(Swal);
-        if(this.state.codigo == '')
+        if(this.state.rut == '' || !this.validarRUT(this.state.rut))
         {
             MySwal.fire({
-                title: <strong>Error en codigo</strong>,
-                html: <i>Porfavor escriba un codigo valido</i>,
+                title: <strong>Error en el rut</strong>,
+                html: <i>Porfavor escriba un rut valido</i>,
                 icon: 'error'
             });
         }
-        else if(this.state.nombre == '')
+        else if(this.state.nombres == '')
         {
             MySwal.fire({
-                title: <strong>Error en nombre</strong>,
+                title: <strong>Error en nombres</strong>,
                 html: <i>Porfavor escriba un nombre valido</i>,
                 icon: 'error'
             });
@@ -80,7 +109,7 @@ class IngresarProveedorComponent extends Component {
         }
         else
         {
-            fetch(`http://localhost:8080/proveedor/ingresar?codigo=${this.state.codigo}&nombre=${this.state.nombre}&categoria=${this.state.categoria}&retencion=${this.state.retencion}`,
+            fetch(`http://localhost:8080/alumno/registrar?rut=${this.state.rut}&nombres=${this.state.nombres}&categoria=${this.state.categoria}&retencion=${this.state.retencion}`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -125,14 +154,14 @@ class IngresarProveedorComponent extends Component {
                         <form onSubmit={this.guardarProveedor}>
                             <ul class="registration-form">
                                 <li>
-                                    <label>Codigo</label>
-                                    <input type="text" placeholder={this.state.textoCodigo} id="codigo"
-                                        name="codigo" onChange={this.changeCodigoProveedor}/>
+                                    <label>Rut</label>
+                                    <input type="text" placeholder={this.state.textoRut} id="rut"
+                                        name="rut" onChange={this.changeRutAlumno}/>
                                 </li>
                                 <li>
                                     <label>Nombre</label>
                                     <input type="text" placeholder="Ingrese el nombre del proveedor" id="nombre"
-                                        name="nombre" onChange={this.changeNombreProveedor}/>
+                                        name="nombre" onChange={this.changeNombresAlumno}/>
                                 </li>
                                 <li>
                                     <label>Categoria</label>
@@ -164,4 +193,4 @@ class IngresarProveedorComponent extends Component {
     }
 }
 
-export default IngresarProveedorComponent;
+export default RegistrarAlumnoComponent;

@@ -10,8 +10,7 @@ function App() {
         <Routes >
           <Route path = "/" element = {<HomeComponent />}> </Route>
           <Route path = "/alumnos" element  = {<VerAlumnosComponent />}> </Route>
-          <Route path = "/regitrar" element  = {<RegistrarAlumnosComponent />}> </Route>
-          <Route path = "/registrarAlumnos" element  = {<RegistrarAlumnosComponent />}> </Route>
+          <Route path = "/alumnos/regitrar" element  = {<RegistrarAlumnosComponent />}> </Route>
         </Routes>
       </BrowserRouter>
     </div>

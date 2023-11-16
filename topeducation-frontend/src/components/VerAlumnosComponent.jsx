@@ -1,89 +1,74 @@
-import React, {Component} from 'react';
-import Button from '@material-ui/core/Button';
+// VerAlumnosComponent.js
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap'; // Importa los componentes de Bootstrap según sea necesario
+import axios from 'axios';
+import '../App.css';
 import styles from '../style.module.css';
 
+const VerAlumnosComponent = () => {
+    const [alumnos, setAlumnos] = useState([]);
 
-class verAlumnosComponent extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            alumnos: [],
-        }
-    }
-    
-    componentDidMount()
-    {
-        fetch("http://localhost:8080/alumnos/")
-        .then((response) => response.json())
-        .then((data) => this.setState({ alumnos: data }));
-    }
-    generarPlanilla = async event => {
-        event.preventDefault();
-        const MySwal = withReactContent(Swal);
+    useEffect(() => {
+        // Realizar la solicitud HTTP para obtener los datos de los alumnos
+        axios.get('/alumnos')
+        .then(response => {
+            setAlumnos(response.data);
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos de los alumnos:', error);
+        });
+    }, []);
 
-        const flag = await fetch("http://localhost:8080/planilla/generar/" + this.state.codigo)
-        .then((response) => response.json())
+    return (
+        <div>
+        <header>
+            <h1>Alumnos Matriculados</h1>
+        </header>
+        <nav>
+            <ul>
+            <li>
+                <Link to="/">Inicio</Link>
+            </li>
+            <li>
+                <Link to="/subir">Importar notas examenes</Link>
+            </li>
+            </ul>
+        </nav>
+        <div class="container-sm">
+    	    <table className={styles.contentTable}>
+            <thead className="thead-dark">
+                <tr>
+                <th>RUT</th>
+                <th>Apellidos</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {alumnos.map((alumno) => (
+                <tr key={alumno.rut}>
+                    <td>{alumno.rut}</td>
+                    <td>{alumno.apellidos}</td>
+                    <td>{alumno.nombres}</td>
+                    <td>
+                    <Button variant="primary" as={Link} to={`/cuotas/${alumno.rut}`}>
+                        Ver Cuotas
+                    </Button>
+                    <Button variant="primary" as={Link} to={`/planillas/${alumno.rut}`}>
+                        Generar Planilla
+                    </Button>
+                    </td>
+                </tr>
+                ))}
+            </tbody>
+            </table>
+            <Button variant="primary" as={Link} to="/alumnos/registrar">
+            Añadir
+            </Button>
+        </div>
+        </div>
+    );
+};
 
-        console.log("flag: " + flag);
-
-        if(flag == true)    
-        {
-            this.setState({redirect: true})
-            console.log("Redirect: " + this.state.redirect);
-            window.location.href = "/verPlanilla";
-        }
-        else
-        {
-            MySwal.fire({
-                title: <strong>Error</strong>,
-                html: <i>No se han encontrado datos suficientes para generar una planilla</i>,
-                icon: 'error'
-            });
-        }
-    }
-    
-    render() {
-        return (
-            <div>
-                <header>
-                    <h1>Alumnos Matriculados</h1>
-                </header>
-                <nav>
-                    <ul>
-                        <li><a href="/">Volver al menú principal</a></li>
-                        <li><a href="/registrar">Matricular nuevo alumno</a></li>
-                    </ul>
-                </nav>
-                <div>
-                    <h1>Lista de proveedores</h1>
-                    <table className={styles.contentTable}>
-                        <thead>
-                            <tr>
-                                <th>Rut</th>
-                                <th>Apellidos</th>
-                                <th>Nombres</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.alumnos.map((alumno) =>(
-                                <tr key={alumno.rut}>
-                                    <td> {alumno.rut} </td>
-                                    <td> {alumno.apellidos} </td>
-                                    <td> {alumno.nombre} </td>
-                                    <td> <Button variant="outlined" color="primary" href="/cuotas">Ver Cuotas</Button> </td>
-                                    ) : (
-                                        <td> No </td>
-                                    )}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                
-            </div>
-        );
-    }
-}
-
-export default verProveedoresComponent;
+export default VerAlumnosComponent;
